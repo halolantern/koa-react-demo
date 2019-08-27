@@ -8,3 +8,5 @@ app.use(async (ctx) => {
 
 const port = add(8080, 1)
 app.listen(port)
+
+console.log(`[ server is runing at port ${port} ]`)
