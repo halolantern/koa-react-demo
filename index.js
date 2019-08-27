@@ -1,9 +1,10 @@
 const Koa = require('koa')
 const app = new Koa()
+const add = require('./lib/add')
 
 app.use(async (ctx) => {
     ctx.body = 'hello there'
 })
 
-const port = 8089
+const port = add(8080, 1)
 app.listen(port)
