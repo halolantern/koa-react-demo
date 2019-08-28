@@ -8,6 +8,7 @@ branchs:
   - master
 
 before_install:
+  - mkdir ~/.ssh
   - touch ~/.ssh/id_rsa
   - openssl aes-256-cbc -K $encrypted_94a4da176068_key -iv $encrypted_94a4da176068_iv
     -in id_rsa.enc -out ~\/.ssh/id_rsa -d
