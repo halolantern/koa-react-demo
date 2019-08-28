@@ -3,7 +3,7 @@ const app = new Koa()
 const add = require('./lib/add')
 
 app.use(async (ctx) => {
-    ctx.body = 'hello there'
+    ctx.body = 'hello travis'
 })
 
 const port = add(3721, 0)
