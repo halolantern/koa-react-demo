@@ -13,7 +13,7 @@ before_install:
   - chmod 600 ~/.ssh/id_rsa
 
 after_success:
-  - ssh root@45.77.187.221 "/data/deploy.bash"
+  - ssh root@45.77.187.221 "/data/deploy.sh"
 
 addons:
   ssh_known_hosts: 45.77.187.221
