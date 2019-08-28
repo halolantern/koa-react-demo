@@ -6,7 +6,7 @@ app.use(async (ctx) => {
     ctx.body = 'hello there'
 })
 
-const port = add(8080, 10000)
+const port = add(3721, 0)
 app.listen(port)
 
 console.log(`[ server is runing at port ${port} ]`)
