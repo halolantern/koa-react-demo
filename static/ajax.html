@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>AJAX TEST</title>
+</head>
+
+<body>
+    <button onclick="getAjax()"> AJAX </button>
+    <button onclick="getJsonp()"> JSONP </button>
+    <button onclick="postFormData()"> FORM-DATA </button>
+</body>
+<script>
+    const baseUrl = 'http://localhost:3721'
+
+    function getAjax() {
+        const xhr = new XMLHttpRequest()
+        xhr.open('get', `${baseUrl}/ajax`, true)
+        xhr.onreadystatechange = () => {
+            if (xhr.readyState === 4 && (xhr.status === 200 || xhr.status === 304)) {
+                console.log('[ xhr ]', xhr.responseText);
+            } else {
+                console.log('[ xhr fail ]', xhr);
+            }
+        }
+        xhr.send()
+    }
+
+    function getJsonp() {
+        const script = document.createElement('script')
+        script.src = `${baseUrl}/jsonp?type=json&callback=onBack`
+        document.body.appendChild(script)
+    }
+
+    function onBack(res) {
+        console.log('[ getjsonp ]', res, typeof res);
+    }
+
+    function postFormData() {
+        const xhr = new XMLHttpRequest()
+        xhr.open('post', `${baseUrl}/formdata`)
+        xhr.onreadystatechange = () => {
+            if (xhr.readyState === 4 && xhr.status === 200 || xhr.status === 304) {
+                console.log('[ xhr ]', xhr.responseText);
+            } else {
+                console.log('[ xhr fail ]', xhr);
+            }
+        }
+        xhr.setRequestHeader('content-type', 'multipart/form-data')
+        const data = new FormData()
+        data.append('k', 'v')
+        xhr.send(data)
+    }
+</script>
+
+</html>
