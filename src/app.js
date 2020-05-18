@@ -14,14 +14,14 @@ app.use(async (ctx, next) => {
     await next()
 });
 app.use(bodyParser({
-    enableTypes: ['text'],
-    extendTypes: {
-        text: [
-            'application/json',
-            // 'multipart/form-data',
-            'application/octet-stream',
-        ]
-    },
+    // enableTypes: ['text'],
+    // extendTypes: {
+    //     text: [
+    //         'application/json',
+    //         'multipart/form-data',
+    //         'application/octet-stream',
+    //     ]
+    // },
 }))
 app.use(router.routes())
 
