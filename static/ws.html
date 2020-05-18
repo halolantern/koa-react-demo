@@ -68,7 +68,8 @@
         $(() => {
             const u8e = new TextEncoder()
             const u8d = new TextDecoder()
-            const socket = new WebSocket('ws://localhost:3721')
+            const { host } = location
+            const socket = new WebSocket(`ws://${host}`)
             socket.binaryType = 'arraybuffer'
             socket.addEventListener('open', event => {
                 console.log('[ onopen ]');
