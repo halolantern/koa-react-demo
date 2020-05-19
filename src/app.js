@@ -2,11 +2,11 @@ const Koa = require('koa')
 const bodyParser = require('koa-bodyparser')
 const http = require('http')
 const path = require('path')
-const static = require('koa-static')
+const koaStatic = require('koa-static')
 const router = require('./routers')
 const createWS = require('./ws')
 const app = new Koa()
-const staticServer = static(path.resolve(__dirname, '../static'), {})
+const staticServer = koaStatic(path.resolve(__dirname, '../static'), {})
 
 app.use(staticServer)
 app.use(async (ctx, next) => {
