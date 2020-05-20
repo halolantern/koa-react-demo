@@ -23,6 +23,7 @@
         "koa-bodyparser": "^4.3.0",
         "koa-router": "^8.0.8",
         "koa-static": "^5.0.0",
+        "mongoose": "^5.9.15",
         "socket.io": "^2.3.0",
         "ws": "^7.3.0"
     },
