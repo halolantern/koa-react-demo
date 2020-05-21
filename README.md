@@ -1,3 +1,3 @@
-# home-server
+# koa-react
 
-> maybe a home server, maybe only a test
+> learn koa and react and so on...
