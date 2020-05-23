@@ -51,12 +51,12 @@ export const updateUser: Router.IMiddleware = async ctx => {
                 username,
                 password,
                 email,
-            }
-        })
+            },
+        }
+    )
     const result = {
         status: 200,
         response: data,
     }
     ctx.body = result
 }
-

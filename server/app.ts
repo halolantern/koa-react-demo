@@ -9,10 +9,12 @@ import { initDb } from './db'
 import config from './config'
 
 const app = new Koa()
-const staticServer = koaStatic(path.resolve(__dirname, '../static'), {})
+const reactStatic = koaStatic(path.resolve(__dirname, '../static/build'))
+const testStatic = koaStatic(path.resolve(__dirname, '../static/testhtml'))
 
 initDb()
-app.use(staticServer)
+app.use(reactStatic)
+app.use(testStatic)
 app.use(bodyParser())
 app.use(router.routes())
 

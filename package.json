@@ -4,19 +4,23 @@
     "description": "",
     "scripts": {
         "w": "nodemon server/app.ts",
-        "build": "tsc"
+        "build": "rm -rf server/dist/* && tsc",
+        "lint": "eslint server/app.ts"
     },
     "repository": {
         "type": "git",
-        "url": "git+https://github.com/halolantern/home-server.git"
+        "url": "git@github.com:halolantern/koa-react-demo.git"
     },
-    "keywords": [],
-    "author": "",
     "license": "ISC",
     "bugs": {
-        "url": "https://github.com/halolantern/home-server/issues"
+        "url": "https://github.com/halolantern/koa-react-demo/issues"
     },
-    "homepage": "https://github.com/halolantern/home-server#readme",
+    "homepage": "https://github.com/halolantern/koa-react-demo#readme",
+    "husky": {
+        "hooks": {
+            "pre-commit": "yarn lint"
+        }
+    },
     "dependencies": {
         "koa": "^2.11.0",
         "koa-bodyparser": "^4.3.0",
@@ -40,6 +44,7 @@
         "eslint": "6.6.0",
         "eslint-config-alloy": "^3.7.2",
         "eslint-plugin-jest": "^23.13.1",
+        "husky": "^4.2.5",
         "nodemon": "^2.0.4",
         "prettier": "^2.0.5",
         "ts-node": "^8.10.1",

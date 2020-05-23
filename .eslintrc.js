@@ -18,7 +18,6 @@ module.exports = {
         'eslint:recommended',
 
         // https://github.com/AlloyTeam/eslint-config-alloy
-        'alloy',
         'alloy/typescript',
     ],
     plugins: [

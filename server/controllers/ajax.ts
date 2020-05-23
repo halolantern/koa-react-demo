@@ -18,4 +18,3 @@ export const formData: Router.IMiddleware = async (ctx, next) => {
     ctx.body = 'data'
     await next()
 }
-
