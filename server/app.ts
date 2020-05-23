@@ -10,7 +10,7 @@ import config from './config'
 
 const app = new Koa()
 const reactStatic = koaStatic(path.resolve(__dirname, '../static/build'))
-const testStatic = koaStatic(path.resolve(__dirname, '../static/testhtml'))
+const testStatic = koaStatic(path.resolve(__dirname, './public'))
 
 initDb()
 app.use(reactStatic)
