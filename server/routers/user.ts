@@ -1,7 +1,7 @@
 import Router from 'koa-router'
 import {
     getUserList,
-    getUserById,
+    getUserByName,
     deleteUser,
     addUser,
     updateUser,
@@ -10,8 +10,8 @@ import {
 
 const router = new Router()
 router.get('/users', getUserList)
-router.get('/userj/:id', getUserById)
-router.get('/user/delete/:id', deleteUser)
+router.get('/userj/:username', getUserByName)
+router.get('/user/delete/:username', deleteUser)
 router.post('/user/add', addUser)
 router.post('/user/update', updateUser)
 router.post('/user/signin', signin)

@@ -6,11 +6,21 @@ import koaStatic from 'koa-static'
 import router from './routers'
 import createWS from './ws'
 import { initDb } from './db'
-import config from './config'
+import { port, redis } from './config'
 // @ts-ignore
 import cors from '@koa/cors'
+import settion from 'koa-generic-session'
+// @ts-ignore
+import redisStore from 'koa-redis'
 
 const app = new Koa()
+app.keys = ['key', 'keykeys']
+app.use(settion({
+    store: new redisStore({
+        host: redis.host,
+        port: redis.port,
+    })
+}))
 const reactStatic = koaStatic(path.resolve(__dirname, '../static/build'))
 const testStatic = koaStatic(path.resolve(__dirname, './public'))
 
@@ -25,6 +35,5 @@ app.use(router.routes())
 
 const server = http.createServer(app.callback())
 createWS(server)
-const { port } = config
 server.listen(port)
 console.log(`[ Server is running at ${port} ]`)

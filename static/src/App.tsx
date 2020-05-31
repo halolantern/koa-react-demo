@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
 import './App.css'
 import { ConfigProvider, message, Button, Input } from 'antd'
-import { EyeInvisibleOutlined, EyeTwoTone } from '@ant-design/icons'
 import zhCN from 'antd/es/locale/zh_CN'
 import moment from 'moment'
 import 'moment/locale/zh-cn'
@@ -34,7 +33,7 @@ const App = () => {
     const handlePassword = (event: any) => {
         setPassword(event.currentTarget.value)
     }
-    const handleSignup = async (event: any) => {
+    const handleSignup = async () => {
         if (!checkInput({ username, password })) return
         const res = await fetch('http://localhost:3721/api/user/signup', {
             method: 'POST',
@@ -44,14 +43,15 @@ const App = () => {
             },
         })
         const resJson = await res.json()
+        const { code, response, msg } = resJson
         console.log('[ handleSignup ]', resJson)
-        if (resJson.status === 200 && resJson.response) {
+        if (code === 0) {
             message.info(`Signup Success! Now you can signin with ${username}`)
         } else {
-            message.error('Signup Fail! ')
+            message.error('Signup Fail! ' + msg)
         }
     }
-    const handleSignin = async (event: any) => {
+    const handleSignin = async () => {
         if (!checkInput({ username, password })) return
         const res = await fetch('http://localhost:3721/api/user/signin', {
             method: 'POST',
@@ -61,14 +61,15 @@ const App = () => {
             },
         })
         const resJson = await res.json()
+        const { code, response, msg } = resJson
         console.log('[ handleSignin ]', resJson)
-        if (resJson.status === 200 && resJson.response) {
+        if (code === 0) {
             message.info(`Signin Success! Hello, ${username}`)
         } else {
-            message.error(`Signin Fail! wrong username or password`)
+            message.error(`Signin Fail! ` + msg)
         }
     }
-    const handleAllUsers = async (event: any) => {
+    const handleAllUsers = async () => {
         const res = await fetch('http://localhost:3721/api/users')
         const resJson = await res.json()
         console.log('[ AllUser ]', resJson)
