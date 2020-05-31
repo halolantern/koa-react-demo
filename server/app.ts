@@ -7,12 +7,17 @@ import router from './routers'
 import createWS from './ws'
 import { initDb } from './db'
 import config from './config'
+// @ts-ignore
+import cors from '@koa/cors'
 
 const app = new Koa()
 const reactStatic = koaStatic(path.resolve(__dirname, '../static/build'))
 const testStatic = koaStatic(path.resolve(__dirname, './public'))
 
 initDb()
+app.use(cors({
+    'origin': '*',
+}))
 app.use(reactStatic)
 app.use(testStatic)
 app.use(bodyParser())

@@ -1,26 +1,102 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from 'react'
+import './App.css'
+import { ConfigProvider, message, Button, Input } from 'antd'
+import { EyeInvisibleOutlined, EyeTwoTone } from '@ant-design/icons'
+import zhCN from 'antd/es/locale/zh_CN'
+import moment from 'moment'
+import 'moment/locale/zh-cn'
+import 'antd/dist/antd.css'
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+moment.locale('zh-cn')
+
+interface ICheckOptions {
+    username: string | null
+    password: string | null
+}
+function checkInput({ username, password }: ICheckOptions) {
+    if (!username) {
+        message.error('username is required')
+        return false
+    }
+    if (!password) {
+        message.error('password is required')
+        return false
+    }
+    return true
 }
 
-export default App;
+const App = () => {
+    const [username, setUsername] = useState(null)
+    const [password, setPassword] = useState(null)
+    const handleUsername = (event: any) => {
+        setUsername(event.currentTarget.value)
+    }
+    const handlePassword = (event: any) => {
+        setPassword(event.currentTarget.value)
+    }
+    const handleSignup = async (event: any) => {
+        if (!checkInput({ username, password })) return
+        const res = await fetch('http://localhost:3721/api/user/signup', {
+            method: 'POST',
+            body: JSON.stringify({ username, password }),
+            headers: {
+                'content-type': 'application/json',
+            },
+        })
+        const resJson = await res.json()
+        console.log('[ handleSignup ]', resJson)
+        if (resJson.status === 200 && resJson.response) {
+            message.info(`Signup Success! Now you can signin with ${username}`)
+        } else {
+            message.error('Signup Fail! ')
+        }
+    }
+    const handleSignin = async (event: any) => {
+        if (!checkInput({ username, password })) return
+        const res = await fetch('http://localhost:3721/api/user/signin', {
+            method: 'POST',
+            body: JSON.stringify({ username, password }),
+            headers: {
+                'content-type': 'application/json',
+            },
+        })
+        const resJson = await res.json()
+        console.log('[ handleSignin ]', resJson)
+        if (resJson.status === 200 && resJson.response) {
+            message.info(`Signin Success! Hello, ${username}`)
+        } else {
+            message.error(`Signin Fail! wrong username or password`)
+        }
+    }
+    const handleAllUsers = async (event: any) => {
+        const res = await fetch('http://localhost:3721/api/users')
+        const resJson = await res.json()
+        console.log('[ AllUser ]', resJson)
+        message.info(`There are ${resJson.response.length} users totally`)
+    }
+    return (
+        <ConfigProvider locale={zhCN}>
+            <div style={{ width: 400, margin: '0 auto', paddingTop: '100px' }}>
+                <div className="username">
+                    username:
+                    <Input onChange={handleUsername} placeholder="username" />
+                </div>
+                <div className="password">
+                    password:
+                    <Input onChange={handlePassword} placeholder="password" />
+                </div>
+                <Button type="primary" onClick={handleSignup}>
+                    Signup
+                </Button>
+                <Button style={{ margin: '20px' }} type="primary" onClick={handleSignin}>
+                    Signin
+                </Button>
+                <Button type="primary" onClick={handleAllUsers}>
+                    AllUsers
+                </Button>
+            </div>
+        </ConfigProvider>
+    )
+}
+
+export default App

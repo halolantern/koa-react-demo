@@ -60,3 +60,12 @@ export const updateUser: Router.IMiddleware = async ctx => {
     }
     ctx.body = result
 }
+export const signin: Router.IMiddleware = async ctx => {
+    const { username, password } = ctx.request.body
+    const data = await User.findOne({ username, password })
+    const result = {
+        status: 200,
+        response: data,
+    }
+    ctx.body = result
+}
