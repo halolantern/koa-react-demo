@@ -25,6 +25,7 @@ function checkInput({ username, password }: ICheckOptions) {
 }
 
 const App = () => {
+    const BASE = 'http://116.62.54.155:3721'
     const [username, setUsername] = useState(null)
     const [password, setPassword] = useState(null)
     const handleUsername = (event: any) => {
@@ -35,7 +36,7 @@ const App = () => {
     }
     const handleSignup = async () => {
         if (!checkInput({ username, password })) return
-        const res = await fetch('http://localhost:3721/api/user/signup', {
+        const res = await fetch(`${BASE}/api/user/signup`, {
             method: 'POST',
             body: JSON.stringify({ username, password }),
             headers: {
@@ -53,7 +54,7 @@ const App = () => {
     }
     const handleSignin = async () => {
         if (!checkInput({ username, password })) return
-        const res = await fetch('http://localhost:3721/api/user/signin', {
+        const res = await fetch(`${BASE}/api/user/signin`, {
             method: 'POST',
             body: JSON.stringify({ username, password }),
             headers: {
@@ -70,7 +71,7 @@ const App = () => {
         }
     }
     const handleAllUsers = async () => {
-        const res = await fetch('http://localhost:3721/api/users')
+        const res = await fetch(`${BASE}/api/users`)
         const resJson = await res.json()
         console.log('[ AllUser ]', resJson)
         message.info(`There are ${resJson.response.length} users totally`)
